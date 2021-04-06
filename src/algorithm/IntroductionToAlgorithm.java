@@ -5,6 +5,9 @@ import java.util.Collections;
 public class IntroductionToAlgorithm {
 
     private static int  Price[]={1,5,8,9,10,17,17,20,24,30};
+
+    //矩阵链横纵坐标序列
+    private static int matrix_order_size[]={30,35,15,5,10,20,25};
     // 自顶向下递归,给定价格表,钢条长度,求最优切割方案
     // 不声明默认为private 访问权限
 
@@ -72,13 +75,44 @@ public class IntroductionToAlgorithm {
         }
     }
 
+    //矩阵链乘法
+    void matrix_chain_order(int[] matrix_order_size){
+
+        int n= matrix_order_size.length-1; //总矩阵数为n个，保证下标范围唯一指定某个矩阵。
+        int m[][]=new int[n+1][n+1]; //保存矩阵链中两个范围内矩阵相乘所需的标量乘法次数。m[1][6] 表示矩阵链(A1A2A3A4A5A6)所需的最少标量乘法次数。
+        int s[][]=new int[n+1][n+1];  //要求保存的范围为横坐标1~n-1,纵坐标2~n。s[1][6]表示划分矩阵链(A1A2A3A4A5A6)矩阵下标数。
+
+        int i,j,l;
+        //查看系统初始值
+        //for(i=0;i<n;i++)
+        //    for(j=0;j<n;j++)
+        //    System.out.printf("m[%d][%d]: %d\n",i,j,m[i][j]);
+
+        for(l=2;l<n;l++){ //l:矩阵链长度
+            for(i=1;i<n-l+1;i++) {
+                m[][]
+            }
+        }
+
+
+
+
+
+    }
+
+
     public static void  main(String[] args){
         IntroductionToAlgorithm intr=new IntroductionToAlgorithm();
-        ArrayList<ArrayList<Integer>> res= intr.extended_bottom_up_cut_rod(Price,10);
-        intr.print_cut_rod_solution(res);
+        intr.matrix_chain_order(matrix_order_size);
+
+
+        //ArrayList<ArrayList<Integer>> res= intr.extended_bottom_up_cut_rod(Price,10);
+        //intr.print_cut_rod_solution(res);
         // int max_benefit=intr.cut_steel_bar_(Price,10);
         // System.out.printf("max benefit %d\n",max_benefit)
         // System.out.println(new IntroductionToAlgorithm().cut_steel_bar(Price,10));
+
+
     }
 
 }
