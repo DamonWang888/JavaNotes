@@ -75,36 +75,55 @@ public class IntroductionToAlgorithm {
         }
     }
 
-    //矩阵链乘法
-    void matrix_chain_order(int[] matrix_order_size){
+    //矩阵链乘法 自顶向下
+    ArrayList<int[][]> matrix_chain_order(int[] matrix_order_size){
 
+        ArrayList<int[][]> res = new ArrayList<>();
         int n= matrix_order_size.length-1; //总矩阵数为n个，保证下标范围唯一指定某个矩阵。
         int m[][]=new int[n+1][n+1]; //保存矩阵链中两个范围内矩阵相乘所需的标量乘法次数。m[1][6] 表示矩阵链(A1A2A3A4A5A6)所需的最少标量乘法次数。
-        int s[][]=new int[n+1][n+1];  //要求保存的范围为横坐标1~n-1,纵坐标2~n。s[1][6]表示划分矩阵链(A1A2A3A4A5A6)矩阵下标数。
+        int s[][]=new int[n+1][n+1];  //要求保存的范围为横坐标1~n-1,纵坐标2~n。s[1][6]表示划分矩阵链(A1A2A3A4A5A6)的矩阵下标数。
+        int i,j,k,l;
 
-        int i,j,l;
         //查看系统初始值
         //for(i=0;i<n;i++)
         //    for(j=0;j<n;j++)
         //    System.out.printf("m[%d][%d]: %d\n",i,j,m[i][j]);
 
-        for(l=2;l<n;l++){ //l:矩阵链长度
-            for(i=1;i<n-l+1;i++) {
-                m[][]
+        for(l=2;l<=n;l++){ //l:矩阵链长度
+            for(i=1;i<=n-l+1;i++) {  //相应矩阵链长度的起始矩阵下标范围
+                j=i+l-1; //结束矩阵下标
+                m[i][j]=Integer.MAX_VALUE;
+                for(k=i;k<j;k++) { //遍历分割点
+                    int multi_num=m[i][k]+m[k+1][j]+matrix_order_size[i-1]*matrix_order_size[k]*matrix_order_size[j];
+                    if(multi_num<m[i][j]){
+                        m[i][j]=multi_num;
+                        s[i][j]=k;
+                    }
+                }
             }
         }
-
-
-
-
-
+        res.add(m);
+        res.add(s);
+        return res;
     }
 
 
+    void print_matrix(int[][] arry){
+        int i,j;
+        int rows=arry[0].length;
+        int colmns=rows;
+        for(i=0;i<rows;i++){
+            for(j=colmns-1;j>=0;j--)
+                System.out.printf("%d ",arry[i][j]);
+            System.out.printf("\n");
+        }
+    }
+
     public static void  main(String[] args){
         IntroductionToAlgorithm intr=new IntroductionToAlgorithm();
-        intr.matrix_chain_order(matrix_order_size);
-
+        ArrayList<int[][]> res =intr.matrix_chain_order(matrix_order_size);
+        intr.print_matrix(res.get(0));
+        intr.print_matrix(res.get(1));
 
         //ArrayList<ArrayList<Integer>> res= intr.extended_bottom_up_cut_rod(Price,10);
         //intr.print_cut_rod_solution(res);
