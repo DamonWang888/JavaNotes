@@ -60,6 +60,7 @@ public class LeetCode {
         int[] res;
         res=leetcode.twoSum(numbers,6);
     }
+    
 }
 
 
