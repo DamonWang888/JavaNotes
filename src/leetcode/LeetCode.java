@@ -1,5 +1,6 @@
 package leetcode;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class LeetCode {
 
@@ -20,20 +21,9 @@ public class LeetCode {
     public int[] twoSum (int[] numbers, int target) {
 
         // write code here
-
-
+        /*
         int[] elem_index=new int[2];
-        //int[] copiedArray = Arrays.copyOfRange(numbers, 0,numbers.length);
-
-        //Arrays.sort(copiedArray);
-
         int i,j,num1 = 0,num2 = 0;
-
-        //int mid=copiedArray.length/2;
-
-        //if(copiedArray[mid])
-
-        //for(i=mid-1,j=mid+1;i>=0&&j<copiedArray.length;)
 
         for(i=0;i<numbers.length;i++){
             num1=numbers[i];
@@ -45,7 +35,24 @@ public class LeetCode {
                 }
             }
         }
-        return elem_index;
+        */
+
+        /**
+         * 哈希方法
+        * */
+
+        int i;
+        HashMap<Integer, Integer> array_map=new HashMap<Integer, Integer>();
+
+        for(i=0;i<numbers.length;i++)
+            if(array_map.containsKey(numbers[i])){
+                return new int[]{array_map.get(numbers[i])+1,i+1};
+            }
+            array_map.put(target-numbers[i],i);
+
+
+
+        return null;
 
     }
 
