@@ -44,14 +44,12 @@ public class LeetCode {
         int i;
         HashMap<Integer, Integer> array_map=new HashMap<Integer, Integer>();
 
-        for(i=0;i<numbers.length;i++)
+        for(i=0;i<numbers.length;i++){
             if(array_map.containsKey(numbers[i])){
                 return new int[]{array_map.get(numbers[i])+1,i+1};
             }
             array_map.put(target-numbers[i],i);
-
-
-
+        }
         return null;
 
     }
