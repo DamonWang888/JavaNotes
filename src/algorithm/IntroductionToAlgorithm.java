@@ -161,6 +161,21 @@ public class IntroductionToAlgorithm {
         }
     }
 
+    void print_long_common_sequence(String b[][],char[] str2,int i,int j){
+        if(i==0||j==0)
+            return;
+        if(b[i][j]=="UpLeft"){
+            print_long_common_sequence(b,str2,i-1,j-1);
+            System.out.println(str2[i-1]); //下标从0开始
+        }
+        else if(b[i][j]=="Left"){
+            print_long_common_sequence(b,str2,i,j-1);
+        }
+        else
+            print_long_common_sequence(b,str2,i-1,j);
+    }
+
+
     public static void  main(String[] args){
         IntroductionToAlgorithm intr=new IntroductionToAlgorithm();
 
@@ -168,12 +183,7 @@ public class IntroductionToAlgorithm {
          * 最长公共子序列
          * **/
         LcsResult lcsResult=intr.longest_common_squence(str2,str1);
-
-
-        System.out.printf("%d\n",str1.length);
-        System.out.printf("%d\n",str2.length);
-
-
+        intr.print_long_common_sequence(lcsResult.b,str2, str2.length,str1.length);
 
         /**
          * 矩阵链乘法
