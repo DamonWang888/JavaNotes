@@ -5,8 +5,7 @@ import java.util.Collections;
 
 
 class LcsResult{
-//    int m;
-//    int n;
+
     String b[][];
     int c[][]; // 存各个子序列最长公共子序列长度
 }
@@ -164,6 +163,10 @@ public class IntroductionToAlgorithm {
 
     public static void  main(String[] args){
         IntroductionToAlgorithm intr=new IntroductionToAlgorithm();
+
+        /**
+         * 最长公共子序列
+         * **/
         LcsResult lcsResult=intr.longest_common_squence(str2,str1);
 
 
