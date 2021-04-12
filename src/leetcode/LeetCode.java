@@ -4,6 +4,64 @@ import java.util.HashMap;
 
 public class LeetCode {
 
+
+    /**
+     *  返回排序的数组
+     * **/
+    public int[] MySort (int[] arr) {
+        // write code here
+        //Arrays.sort(arr);
+        //return  arr;
+
+        //BubbleSort
+        /*
+        for(int i=1;i<arr.length;i++){
+            boolean flag=true;
+            for(int j=0;j<arr.length-i;j++){
+                if(arr[j]>arr[j+1]){
+                    int temp=arr[j+1];
+                    arr[j+1]=arr[j];
+                    arr[j]=temp;
+                    flag=false;
+                }
+            }
+            if(false)
+                break;
+        }*/
+
+        //QuickSort
+        quciksort(arr,0,arr.length-1);
+        return arr;
+    }
+
+    void quciksort(int[] arr,int low,int high){
+        if(low>=high)
+            return;
+        int pos=partion(arr,low,high);
+        quciksort(arr,low,pos-1);
+        quciksort(arr,pos+1,high);
+    }
+
+    int partion(int[] arr,int low,int high){
+        int compare=arr[high];
+        int i=low-1;
+        int temp;
+        for(int j=low;j<=high-1;j++){
+            if(arr[j]<=compare){
+                i=i+1;
+                temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+        temp=arr[i+1];
+        arr[i+1]=compare;
+        arr[high]=temp;
+        return i+1;
+    }
+
+
+
     /**
     *   求两数之和
     * */
@@ -16,7 +74,7 @@ public class LeetCode {
      */
 
 
-    private static int[] numbers=new int[]{2,3,4};
+    private static int[] numbers=new int[]{2,3,4,1};
 
     public int[] twoSum (int[] numbers, int target) {
 
@@ -58,9 +116,23 @@ public class LeetCode {
     public static void main(String args[]){
         LeetCode leetcode=new LeetCode();
         int[] res;
-        res=leetcode.twoSum(numbers,6);
+
+        /**
+         *  数组排序
+         * **/
+        res=leetcode.MySort(numbers);
+        Print print=new Print();
+        print.own_print(res);
+
+        /**
+         *  求两个数的和
+         * **/
+        //res=leetcode.twoSum(numbers,6);
+
+
+
     }
-    
+
 }
 
 
