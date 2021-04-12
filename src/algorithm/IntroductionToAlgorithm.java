@@ -1,8 +1,18 @@
 package algorithm;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
+
+class LcsResult{
+//    int m;
+//    int n;
+    String b[][];
+    int c[][]; // 存各个子序列最长公共子序列长度
+}
+
 public class IntroductionToAlgorithm {
+
 
     private static int  Price[]={1,5,8,9,10,17,17,20,24,30};
 
@@ -10,6 +20,10 @@ public class IntroductionToAlgorithm {
     private static int matrix_order_size[]={30,35,15,5,10,20,25};
     // 自顶向下递归,给定价格表,钢条长度,求最优切割方案
     // 不声明默认为private 访问权限
+
+    private static char[] str1={'B','D','C','A','B','A'};
+    private static char[] str2={'A','B','C','B','D','A','B'};
+
 
     int cut_steel_bar(int[] Price, int n){
         int max_price=-1;
@@ -107,6 +121,35 @@ public class IntroductionToAlgorithm {
         return res;
     }
 
+    //求最长公共子序列
+    LcsResult longest_common_squence(char[] str1, char[] str2){
+        LcsResult lcsResult=new LcsResult();
+        int m=str1.length;
+        int n=str2.length;
+
+        String b[][]=new String[m+1][n+1];  // 存帮助构造最优解的辅助信息
+        int c[][]=new int[m+1][n+1]; // 存各个子序列最长公共子序列长度
+
+        for(int i=1;i<=m;i++)
+            for(int j=1;j<=n;j++){
+                if(str1[i-1]==str2[j-1]){
+                    b[i][j]="UpLeft";
+                    c[i][j]=c[i-1][j-1]+1;
+                }
+                else if(c[i-1][j]>=c[i][j-1]){
+                    c[i][j]=c[i-1][j];
+                    b[i][j]="Up";
+                }
+                else{
+                    c[i][j]=c[i][j-1];
+                    b[i][j]="Left";
+                }
+            }
+        lcsResult.c=c;
+        lcsResult.b=b;
+        return lcsResult;
+    }
+
 
     void print_matrix(int[][] arry){
         int i,j;
@@ -121,17 +164,34 @@ public class IntroductionToAlgorithm {
 
     public static void  main(String[] args){
         IntroductionToAlgorithm intr=new IntroductionToAlgorithm();
-        ArrayList<int[][]> res =intr.matrix_chain_order(matrix_order_size);
-        intr.print_matrix(res.get(0));
-        intr.print_matrix(res.get(1));
+        LcsResult lcsResult=intr.longest_common_squence(str2,str1);
 
+
+        System.out.printf("%d\n",str1.length);
+        System.out.printf("%d\n",str2.length);
+
+
+
+        /**
+         * 矩阵链乘法
+         * **/
+
+        //ArrayList<int[][]> res =intr.matrix_chain_order(matrix_order_size);
+        //intr.print_matrix(res.get(0));
+        //intr.print_matrix(res.get(1));
+
+
+        /**
+         * 钢条切割
+         * **/
         //ArrayList<ArrayList<Integer>> res= intr.extended_bottom_up_cut_rod(Price,10);
         //intr.print_cut_rod_solution(res);
         // int max_benefit=intr.cut_steel_bar_(Price,10);
         // System.out.printf("max benefit %d\n",max_benefit)
         // System.out.println(new IntroductionToAlgorithm().cut_steel_bar(Price,10));
-
-
     }
+
+
+
 
 }
