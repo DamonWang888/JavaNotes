@@ -8,7 +8,7 @@ class TreeNode {
         TreeNode left;
         TreeNode  right;
         TreeNode(int x){
-            this.val=x, this.left=NULL, this.right=NULL;
+            this.val=x;
         }
 };
 
