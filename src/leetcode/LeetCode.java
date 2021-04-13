@@ -2,7 +2,75 @@ package leetcode;
 import java.util.Arrays;
 import java.util.HashMap;
 
+
+class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode  right;
+        TreeNode(int x){
+            this.val=x, this.left=NULL, this.right=NULL;
+        }
+};
+
+
+class ListNode {
+    int val;
+    ListNode next = null;
+};
+
+
+
 public class LeetCode {
+
+
+    /**
+     *  链表排序
+     * **/
+    public ListNode sortInList (ListNode head) {
+        // write code here
+
+        //头插法排序
+        if(head==null)
+            return null;
+        ListNode pWork=head.next;
+        ListNode pPre=head;
+        //ListNode pWorkNext=pWork.next;
+        ListNode pPreWork;
+        ListNode pPrePreWork;
+
+        while (pWork!=null){
+            if (pWork.val<pPre.val){
+                pPrePreWork=head;
+                pPreWork=pPrePreWork;
+                while (pPreWork.val<pWork.val){
+                    pPrePreWork=pPreWork;
+                    pPreWork=pPreWork.next;
+                }
+                if(pPreWork.next==pWork){
+                    int temp=pPreWork.val;
+                    pPreWork.val=pWork.val;
+                    pWork.val=temp;
+                    pPre=pWork;
+                    pWork=pWork.next;
+                }
+                else{
+                    pPrePreWork.next=pWork;
+                    pPre.next=pWork.next;
+                    pWork.next=pPreWork;
+                    pWork=pPre.next;
+                }
+            }
+            else{
+                pPre=pWork;
+                pWork=pWork.next;
+            }
+        }
+        return head;
+    }
+
+
+
+
 
 
     /**
