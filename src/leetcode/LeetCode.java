@@ -1,5 +1,7 @@
 package leetcode;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -24,9 +26,9 @@ public class LeetCode {
 
 
     /**
-     *  链表排序
+     *  链表排序 插入排序版本 超时
      * **/
-    public ListNode sortInList (ListNode head) {
+    public ListNode sortInList_insert (ListNode head) {
         // write code here
 
         //头插法排序
@@ -70,7 +72,85 @@ public class LeetCode {
 
 
 
+    /**
+     *  链表排序 选择排序版本  超时
+     * **/
+    public ListNode sortInList_select (ListNode head) {
+        if(head==null||head.next==null)
+            return head;
+        ListNode pPre=head;
 
+        while(pPre.next!=null){
+            ListNode pWork=pPre.next;
+            while (pWork!=null){
+                if(pWork.val<pPre.val){
+                    int temp=pWork.val;
+                    pPre.val=pWork.val;
+                    pWork.val=temp;
+                }
+                pWork=pWork.next;
+            }
+            pPre=pPre.next;
+
+        }
+        return  head;
+    }
+
+
+
+    /**
+     *  每次从未排序链表中选择最小的插入已排序链表后面
+     * **/
+    public ListNode sortInList_insertmin (ListNode head) {
+        if(head==null||head.next==null)
+            return head;
+
+        ListNode newHead=new ListNode();
+        newHead.val=65536;
+        newHead.next=head;
+        ListNode newTail = head;
+
+        //外层循环结束条件:尾节点的下一个值为空
+        while(newTail.next!=null){
+            ListNode pPre=head;
+            ListNode pWork=head;
+            ListNode min=null;
+            ListNode preMin=null;
+            while(pWork!=null){
+                if(min==null||pWork.val<min.val){
+                    min=pWork;
+                    preMin=pPre;
+                }
+                pPre=pWork;
+                pWork=pWork.next;
+            }
+
+            preMin.next=min.next;
+            min.next=newTail.next;
+            newTail.next=min;
+            newTail=min;
+        }
+        return  newHead.next;
+    }
+
+    public ListNode sortInList (ListNode head) {
+        if(head==null||head.next==null)
+            return head;
+
+        ListNode pwork=head;
+        ArrayList<Integer> listnode=new ArrayList<Integer>();
+        while(pwork!=null){
+            listnode.add(pwork.val);
+            pwork=pwork.next;
+        }
+        Collections.sort(listnode);
+        pwork=head;
+        for(int i=0;i<listnode.size();i++){
+            pwork.val=listnode.get(i);
+            pwork=pwork.next;
+        }
+        return head;
+    }
 
 
     /**
