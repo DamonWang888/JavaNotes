@@ -154,6 +154,38 @@ public class LeetCode {
 
 
     /**
+     *
+     * **/
+    void quciksort_list(ListNode left,ListNode right){
+        if(left!=right){
+            int val=left.val; //只能选择最左元素作哨兵，无法定位最后一个节点。
+            ListNode p=left;
+            ListNode q=left.next;
+            while (q!=right){
+                if(q.val<val){
+                    p=p.next;
+                    int temp=q.val;
+                    q.val=p.val;
+                    p.val=temp;
+                }
+                q=q.next;
+            }
+            left.val=p.val;
+            p.val=val;//p是最终的分割点
+            quciksort_list(left,p);
+            quciksort_list(p.next,right);
+        }
+
+    }
+
+    /**
+     * 链表排序 快速排序版本
+     * **/
+    public ListNode sortInList_quicksort (ListNode head){
+
+    }
+
+    /**
      *  返回排序的数组
      * **/
     public int[] MySort (int[] arr) {
@@ -207,6 +239,8 @@ public class LeetCode {
         arr[high]=temp;
         return i+1;
     }
+
+
 
 
 
